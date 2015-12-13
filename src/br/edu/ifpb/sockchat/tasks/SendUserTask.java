@@ -25,7 +25,7 @@ public class SendUserTask implements Task{
 		ClientConn client = ConnectionMap.getInstance().getClient(toName);
 		DataOutputStream output;
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = Calendar.getInstance().getTime();
 		
 		try{

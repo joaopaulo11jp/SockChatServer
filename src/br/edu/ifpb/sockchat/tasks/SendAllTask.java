@@ -26,7 +26,7 @@ public class SendAllTask implements Task{
 		ClientConn client;
 		DataOutputStream output;
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = Calendar.getInstance().getTime();
 		
 		Iterator<ClientConn> it = allClients.iterator();
