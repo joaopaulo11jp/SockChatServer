@@ -23,7 +23,7 @@ public class RenameTask implements Task{
 		try{
 			output = new DataOutputStream(client.getSock().getOutputStream());
 			ConnectionMap.getInstance().changeClientName(oldName, newName);	
-			output.writeUTF("Nome alterado de :"+oldName+" para: "+newName);
+			output.writeUTF("Your name is "+newName+" now!");
 		}catch(NameAlreadyExistsException e){
 			try {
 				output.writeUTF("Erro: "+e.getMessage());

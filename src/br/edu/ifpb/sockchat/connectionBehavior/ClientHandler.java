@@ -46,7 +46,7 @@ public class ClientHandler implements Runnable{
 						break;
 					case "rename":
 						if(command.length == 2)
-							new Thread(new TaskWorker(new RenameTask(this.client.getName(),command[1])));
+							new Thread(new TaskWorker(new RenameTask(this.client.getName(),command[1]))).start();
 						else throw new InvalidCommandException();
 						break;
 					case "bye":
@@ -79,7 +79,6 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public String generateGuestName(){
-		//TODO implementar de verdade!
 		return "guest-123";
 	}
 	

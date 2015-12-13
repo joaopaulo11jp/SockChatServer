@@ -29,9 +29,10 @@ public class ConnectionMap {
 		this.clients.remove(name);
 	}
 	
-	public synchronized ClientConn changeClientName(String oldName, String newName) throws NameAlreadyExistsException{		
-		if(this.clients.get("oldname") != null) throw new NameAlreadyExistsException();
+	public synchronized ClientConn changeClientName(String oldName, String newName) throws NameAlreadyExistsException{
+		if(this.clients.get(newName) != null) throw new NameAlreadyExistsException();
 		
+		this.clients.get(oldName).setName(newName);
 		this.clients.put(newName, this.clients.remove(oldName));
 		
 		return this.clients.get(newName);
