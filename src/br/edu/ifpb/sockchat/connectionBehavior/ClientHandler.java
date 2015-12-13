@@ -29,7 +29,7 @@ public class ClientHandler implements Runnable{
 	@Override
 	public void run() {
 		String[] command;
-		System.out.println("Antes do loop");
+		
 		while(true){			
 			try {
 				command = getCommandWords(waitReq());
@@ -74,7 +74,6 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public String waitReq() throws IOException{
-		System.out.println("Lendo...");
 		return this.input.readUTF();
 		
 	}
