@@ -22,19 +22,27 @@ public class SendUserTask implements Task{
 	
 	@Override
 	public void doTask() {
-		ClientConn client = ConnectionMap.getInstance().getClient(toName);
-		DataOutputStream output;
+		ClientConn toClient = ConnectionMap.getInstance().getClient(toName);
+		ClientConn fromClient = ConnectionMap.getInstance().getClient(fromName);
+		DataOutputStream outputTo;
+		DataOutputStream outputFrom;
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = Calendar.getInstance().getTime();
 		
+		//TODO Possíveis erros : Usuário nao existir e Enviar para si mesmo
 		try{
-			output = new DataOutputStream(client.getSock().getOutputStream());
-			output.writeUTF(client.getSock().getInetAddress().toString()+
-					        ":"+client.getSock().getPort()+
-					        "/~"+this.fromName+":"+
-					       this.msg+" "+sdfTime.format(date)+" "+
-					       sdfDate.format(date)+" (PVT)");
+			String msg = toClient.getSock().getInetAddress().toString()+
+			             ":"+toClient.getSock().getPort()+
+			             "/~"+this.fromName+": "+
+			             this.msg+" "+sdfTime.format(date)+" "+
+			             sdfDate.format(date)+" (PVT";
+			
+			outputTo = new DataOutputStream(toClient.getSock().getOutputStream());
+			outputTo.writeUTF(msg+" to you)");
+			
+			outputFrom = new DataOutputStream(fromClient.getSock().getOutputStream());
+			outputFrom.writeUTF(msg+" to "+toClient.getName()+")");
 		}catch (IOException e){}
 	}
 
