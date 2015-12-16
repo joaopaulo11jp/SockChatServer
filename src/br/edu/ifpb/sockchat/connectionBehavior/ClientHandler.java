@@ -89,13 +89,16 @@ public class ClientHandler implements Runnable{
 	//- Callers
 	public Task callSpecificSendWorker(String[] command) throws Exception{
 		Task task;
+		String msg = "";
 		
 		switch(command[1]){
 			case "-all":
-				task = new SendAllTask(this.client.getName(),command[2]);
+				for(int i = 2; i <= command.length-1;i++) msg += " "+command[i];
+				task = new SendAllTask(this.client.getName(),msg);
 				break;
 			case "-user":
-				task = new SendUserTask(this.client.getName(),command[2],command[3]);
+				for(int i = 3; i <= command.length-1;i++) msg = " "+command[i];
+				task = new SendUserTask(this.client.getName(),command[2],msg);
 				break;
 			default:
 				throw new InvalidCommandException();

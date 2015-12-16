@@ -36,7 +36,7 @@ public class SendAllTask implements Task{
 				output = new DataOutputStream(client.getSock().getOutputStream());
 				output.writeUTF(client.getSock().getInetAddress().toString()+
 						        ":"+client.getSock().getPort()+
-						        "/~"+this.fromName+": "+
+						        "/~"+this.fromName+":"+
 						       this.msg+" "+sdfTime.format(date)+" "+
 						       sdfDate.format(date));
 			}
