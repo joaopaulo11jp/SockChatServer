@@ -3,6 +3,7 @@ package br.edu.ifpb.sockchat.connectionBehavior;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Random;
 
 import br.edu.ifpb.sockchat.exception.InvalidCommandException;
 import br.edu.ifpb.sockchat.tasks.RenameTask;
@@ -14,8 +15,10 @@ import br.edu.ifpb.sockchat.tasks.TaskWorker;
 public class ClientHandler implements Runnable{
 	ClientConn client;
 	private DataInputStream input;
+	private Random randomName;
 	
 	public ClientHandler(Socket sock){
+		this.randomName = new Random(100000);
 		this.client = new ClientConn(this.generateGuestName(),sock);
 		
 		ConnectionMap.getInstance().addClient(this.client);
@@ -79,7 +82,8 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public String generateGuestName(){
-		return "guest-123";
+		String name = "GUEST-"+this.randomName.nextInt();
+		return (ConnectionMap.getInstance().getClient(name) != null) ? this.generateGuestName(): name;
 	}
 	
 	public String[] getCommandWords(String command){
