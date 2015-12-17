@@ -65,7 +65,6 @@ public class ClientHandler implements Runnable{
 				}		
 				
 			} catch (InvalidCommandException e){
-				//TODO os erros devem ser enviados ao cliente
 				try {
 					client.getOut().writeUTF("Error: "+e.getMessage());
 				} catch (IOException e1) {

@@ -16,7 +16,6 @@ public class ServerHandler {
 		try{
 			ServerSocket serverSock = new ServerSocket(PORTA);
 			System.out.println("Server started!");
-			//TODO Load the application before accept
 			while(true){
 				System.out.println("Waiting for a new connection...");
 				Socket clientSock = serverSock.accept();
