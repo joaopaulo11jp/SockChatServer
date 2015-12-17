@@ -1,6 +1,6 @@
 package br.edu.ifpb.sockchat.tasks;
 
-import java.io.DataOutputStream;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
