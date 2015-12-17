@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.Random;
 
 import br.edu.ifpb.sockchat.exception.InvalidCommandException;
+import br.edu.ifpb.sockchat.tasks.ListTask;
 import br.edu.ifpb.sockchat.tasks.RenameTask;
 import br.edu.ifpb.sockchat.tasks.SendAllTask;
 import br.edu.ifpb.sockchat.tasks.SendUserTask;
@@ -46,6 +47,7 @@ public class ClientHandler implements Runnable{
 						}
 						break;
 					case "list":
+						new Thread(new TaskWorker(new ListTask(this.client.getName()))).start();
 						break;
 					case "rename":
 						if(command.length == 2)
