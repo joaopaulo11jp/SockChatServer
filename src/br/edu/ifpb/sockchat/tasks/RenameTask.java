@@ -25,7 +25,7 @@ public class RenameTask implements Task{
 			try {
 				client.getOut().writeUTF("Erro: "+e.getMessage());
 			} catch (IOException e1) {
-				System.out.println(e1.getMessage());
+				System.out.println("Internal Error: "+e1.getMessage());
 			}
 		}catch(Exception e){
 			

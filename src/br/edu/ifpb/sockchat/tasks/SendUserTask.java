@@ -8,6 +8,8 @@ import java.util.Date;
 
 import br.edu.ifpb.sockchat.connectionBehavior.ClientConn;
 import br.edu.ifpb.sockchat.connectionBehavior.ConnectionMap;
+import br.edu.ifpb.sockchat.exception.UserIsNotConnectedException;
+import br.edu.ifpb.sockchat.exception.UserSelfMessageException;
 
 public class SendUserTask implements Task{
 	private String fromName;
@@ -24,12 +26,18 @@ public class SendUserTask implements Task{
 	public void doTask() {
 		ClientConn toClient = ConnectionMap.getInstance().getClient(toName);
 		ClientConn fromClient = ConnectionMap.getInstance().getClient(fromName);
-		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = Calendar.getInstance().getTime();
+		SimpleDateFormat sdfTime; 
+		SimpleDateFormat sdfDate;
+		Date date;
 		
-		//TODO Possíveis erros : Usuário nao existir e Enviar para si mesmo
 		try{
+			if(toClient == null) throw new UserIsNotConnectedException(toName);
+			else if(toClient == fromClient) throw new UserSelfMessageException();
+			
+			sdfTime = new SimpleDateFormat("HH:mm");
+			sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+			date = Calendar.getInstance().getTime(); 
+			
 			String msg = toClient.getSock().getInetAddress().toString()+
 			             ":"+toClient.getSock().getPort()+
 			             "/~"+this.fromName+":"+
@@ -39,7 +47,16 @@ public class SendUserTask implements Task{
 			toClient.getOut().writeUTF(msg+" to you)");
 			
 			fromClient.getOut().writeUTF(msg+" to "+toClient.getName()+")");
-		}catch (IOException e){}
+		}catch (IOException e){
+			System.out.println("Internal Error: "+e.getMessage());
+		}catch(Exception e){
+			try {
+				fromClient.getOut().writeUTF("Error: "+e.getMessage());
+			} catch (IOException e1) {
+				System.out.println("Internal Error: "+e1.getMessage());
+			}
+		}
+		
 	}
 
 }

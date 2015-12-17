@@ -60,7 +60,11 @@ public class ClientHandler implements Runnable{
 				
 			} catch (InvalidCommandException e){
 				//TODO os erros devem ser enviados ao cliente
-				System.out.println(e.getMessage());
+				try {
+					client.getOut().writeUTF("Error: "+e.getMessage());
+				} catch (IOException e1) {
+					System.out.println("Internal Error:"+e1.getMessage());
+				}
 			} catch (IOException e) {
 				if(e.getMessage() == null){
 					System.out.println(client.getName()+" disconnected");
@@ -68,8 +72,7 @@ public class ClientHandler implements Runnable{
 						client.getSock().close();
 						Thread.currentThread().stop();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						System.out.println("Internal Error:"+e1.getMessage());
 					}
 				}
 			}
