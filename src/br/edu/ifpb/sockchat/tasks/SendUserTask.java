@@ -44,14 +44,14 @@ public class SendUserTask implements Task{
 			             this.msg+" "+sdfTime.format(date)+" "+
 			             sdfDate.format(date)+" (PVT";
 			
-			toClient.getOut().writeUTF(msg+" to you)");
+			toClient.sendOut(msg+" to you)");
 			
-			fromClient.getOut().writeUTF(msg+" to "+toClient.getName()+")");
+			fromClient.sendOut(msg+" to "+toClient.getName()+")");
 		}catch (IOException e){
 			System.out.println("Internal Error: "+e.getMessage());
 		}catch(Exception e){
 			try {
-				fromClient.getOut().writeUTF("Error: "+e.getMessage());
+				fromClient.sendOut("Error: "+e.getMessage());
 			} catch (IOException e1) {
 				System.out.println("Internal Error: "+e1.getMessage());
 			}

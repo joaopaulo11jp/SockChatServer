@@ -30,7 +30,7 @@ public class ListTask implements Task{
 			}
 			
 			msg += "---------------\n";
-			client.getOut().writeUTF(msg);
+			client.sendOut(msg);
 		}catch(IOException e){
 			System.out.println("Internal Error: "+e.getMessage());
 		}

@@ -66,7 +66,7 @@ public class ClientHandler implements Runnable{
 				
 			} catch (InvalidCommandException e){
 				try {
-					client.getOut().writeUTF("Error: "+e.getMessage());
+					client.sendOut("Error: "+e.getMessage());
 				} catch (IOException e1) {
 					System.out.println("Internal Error:"+e1.getMessage());
 				}

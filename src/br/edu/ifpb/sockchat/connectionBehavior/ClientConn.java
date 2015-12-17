@@ -46,5 +46,8 @@ public class ClientConn {
 		this.out = out;
 	}
 	
+	public synchronized void sendOut(String txt) throws IOException{
+		this.out.writeUTF(txt);
+	}
 	
 }

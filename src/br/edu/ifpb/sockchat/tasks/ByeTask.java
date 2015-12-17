@@ -17,7 +17,7 @@ public class ByeTask implements Task{
 		ConnectionMap.getInstance().removeClient(fromName);
 		
 		try {
-			client.getOut().writeUTF("Server: You're disconnected!");
+			client.sendOut("Server: You're disconnected!");
 			client.getSock().close();
 		} catch (IOException e) {
 			System.out.println("Internal Error: "+e.getMessage());

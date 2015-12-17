@@ -20,10 +20,10 @@ public class RenameTask implements Task{
 		
 		try{
 			ConnectionMap.getInstance().changeClientName(oldName, newName);	
-			client.getOut().writeUTF("Your name is "+newName+" now!");
+			client.sendOut("Your name is "+newName+" now!");
 		}catch(NameAlreadyExistsException e){
 			try {
-				client.getOut().writeUTF("Erro: "+e.getMessage());
+				client.sendOut("Erro: "+e.getMessage());
 			} catch (IOException e1) {
 				System.out.println("Internal Error: "+e1.getMessage());
 			}
