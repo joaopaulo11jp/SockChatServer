@@ -1,6 +1,5 @@
 package br.edu.ifpb.sockchat.tasks;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import br.edu.ifpb.sockchat.connectionBehavior.ClientConn;
@@ -17,16 +16,14 @@ public class RenameTask implements Task{
 		}
 	@Override
 	public void doTask() {
-		ClientConn client =  ConnectionMap.getInstance().getClient(oldName);
-		DataOutputStream output = null; 	
+		ClientConn client =  ConnectionMap.getInstance().getClient(oldName); 	
 		
 		try{
-			output = new DataOutputStream(client.getSock().getOutputStream());
 			ConnectionMap.getInstance().changeClientName(oldName, newName);	
-			output.writeUTF("Your name is "+newName+" now!");
+			client.getOut().writeUTF("Your name is "+newName+" now!");
 		}catch(NameAlreadyExistsException e){
 			try {
-				output.writeUTF("Erro: "+e.getMessage());
+				client.getOut().writeUTF("Erro: "+e.getMessage());
 			} catch (IOException e1) {
 				System.out.println(e1.getMessage());
 			}

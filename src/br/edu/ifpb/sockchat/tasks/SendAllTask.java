@@ -23,8 +23,7 @@ public class SendAllTask implements Task{
 	@Override
 	public void doTask() {
 		Collection<ClientConn> allClients = ConnectionMap.getInstance().getAllClient();
-		ClientConn client;
-		DataOutputStream output;
+		ClientConn clientAux;
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = Calendar.getInstance().getTime();
@@ -32,10 +31,9 @@ public class SendAllTask implements Task{
 		Iterator<ClientConn> it = allClients.iterator();
 		try{
 			while(it.hasNext()){
-				client = it.next();
-				output = new DataOutputStream(client.getSock().getOutputStream());
-				output.writeUTF(client.getSock().getInetAddress().toString()+
-						        ":"+client.getSock().getPort()+
+				clientAux = it.next();
+				clientAux.getOut().writeUTF(clientAux.getSock().getInetAddress().toString()+
+						        ":"+clientAux.getSock().getPort()+
 						        "/~"+this.fromName+":"+
 						       this.msg+" "+sdfTime.format(date)+" "+
 						       sdfDate.format(date));

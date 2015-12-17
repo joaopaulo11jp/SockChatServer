@@ -18,12 +18,12 @@ public class ClientHandler implements Runnable{
 	private Random randomName;
 	
 	public ClientHandler(Socket sock){
-		this.randomName = new Random(100000);
-		this.client = new ClientConn(this.generateGuestName(),sock);
+		this.randomName = new Random(100000);		
 		
-		ConnectionMap.getInstance().addClient(this.client);
 		try{
-			this.input = new DataInputStream(this.client.getSock().getInputStream());
+			this.client = new ClientConn(this.generateGuestName(),sock);
+			ConnectionMap.getInstance().addClient(this.client);
+			this.input = client.getIn();
 		}catch(IOException e){
 			System.out.println("Erro:"+e.getMessage());
 		}
