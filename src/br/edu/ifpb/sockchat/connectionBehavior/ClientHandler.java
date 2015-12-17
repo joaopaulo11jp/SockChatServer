@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.Random;
 
 import br.edu.ifpb.sockchat.exception.InvalidCommandException;
+import br.edu.ifpb.sockchat.tasks.ByeTask;
 import br.edu.ifpb.sockchat.tasks.ListTask;
 import br.edu.ifpb.sockchat.tasks.RenameTask;
 import br.edu.ifpb.sockchat.tasks.SendAllTask;
@@ -55,6 +56,9 @@ public class ClientHandler implements Runnable{
 						else throw new InvalidCommandException();
 						break;
 					case "bye":
+						new Thread(new TaskWorker(new ByeTask(this.client.getName()))).start();
+						System.out.println(client.getName()+" disconnected");
+						Thread.currentThread().stop();
 						break;
 					default:
 						throw new InvalidCommandException();				
