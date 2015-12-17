@@ -32,7 +32,7 @@ public class SendAllTask implements Task{
 		try{
 			while(it.hasNext()){
 				clientAux = it.next();
-				clientAux.getOut().writeUTF(clientAux.getSock().getInetAddress().toString()+
+				clientAux.getOut().writeUTF(clientAux.getSock().getRemoteSocketAddress().toString()+
 						        ":"+clientAux.getSock().getPort()+
 						        "/~"+this.fromName+":"+
 						       this.msg+" "+sdfTime.format(date)+" "+

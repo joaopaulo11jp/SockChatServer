@@ -38,7 +38,7 @@ public class SendUserTask implements Task{
 			sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			date = Calendar.getInstance().getTime(); 
 			
-			String msg = toClient.getSock().getInetAddress().toString()+
+			String msg = toClient.getSock().getRemoteSocketAddress().toString()+
 			             ":"+toClient.getSock().getPort()+
 			             "/~"+this.fromName+":"+
 			             this.msg+" "+sdfTime.format(date)+" "+
