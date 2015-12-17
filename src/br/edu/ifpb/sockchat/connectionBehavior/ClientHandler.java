@@ -42,13 +42,18 @@ public class ClientHandler implements Runnable{
 				switch(command[0]){				
 					case "send":
 						try{
-						new Thread(new TaskWorker(this.callSpecificSendWorker(command))).start();
+							if(command.length < 3) throw new InvalidCommandException();
+							new Thread(new TaskWorker(this.callSpecificSendWorker(command))).start();
+						}catch(InvalidCommandException e){
+							client.sendOut("Error: "+e.getMessage());
 						}catch(Exception e){
 							System.out.println(e.getMessage());
 						}
 						break;
 					case "list":
-						new Thread(new TaskWorker(new ListTask(this.client.getName()))).start();
+						if(command.length == 1)
+							new Thread(new TaskWorker(new ListTask(this.client.getName()))).start();
+						else throw new InvalidCommandException();
 						break;
 					case "rename":
 						if(command.length == 2)
@@ -56,7 +61,9 @@ public class ClientHandler implements Runnable{
 						else throw new InvalidCommandException();
 						break;
 					case "bye":
-						new Thread(new TaskWorker(new ByeTask(this.client.getName()))).start();
+						if(command.length == 1)
+							new Thread(new TaskWorker(new ByeTask(this.client.getName()))).start();
+						else throw new InvalidCommandException();
 						System.out.println(client.getName()+" disconnected");
 						Thread.currentThread().stop();
 						break;
